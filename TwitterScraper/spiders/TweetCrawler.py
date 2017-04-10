@@ -80,7 +80,6 @@ class TweetScraper(scrapy.Spider):
     def parse_tweet_item(self, items):
         for item in items:
             logger.debug("Show tweet:\n%s" % item.xpath('.').extract()[0])
-            logger.info("Show tweet:\n%s" % item.xpath('.').extract()[0])
             try:
                 tweet_item = TweetItem()
                 user_item = UserItem()
