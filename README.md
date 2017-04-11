@@ -4,7 +4,7 @@ It is built on [Scrapy](http://scrapy.org/) without using [Twitter's APIs](https
 The crawled data is not as *clean* as the one obtained by the APIs, but the benefits are you can get rid of the API's rate limits and restrictions. Ideally, you can get all the data from Twitter Search.
 
 **WARNING:** please be polite and follow the [crawler's politeness policy](https://en.wikipedia.org/wiki/Web_crawler#Politeness_policy).
- 
+
 
 # Installation #
 It requires [Scrapy](http://scrapy.org/). Setting up:
