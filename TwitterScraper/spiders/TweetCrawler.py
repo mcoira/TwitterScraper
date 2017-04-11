@@ -25,7 +25,7 @@ class TweetScraper(scrapy.Spider):
     def start_requests(self):
         # generate request: https://twitter.com/search?q=[xxx] for each query
         for query in self.queries:
-            url = 'https://twitter.com/search?q=%s' % urllib.parse.quote_plus(query)
+            url = 'https://twitter.com/search?f=tweets&&q=%s' % urllib.parse.quote_plus(query)
             yield scrapy.Request(url, callback=self.parse)
 
     def parse(self, response):
@@ -38,7 +38,7 @@ class TweetScraper(scrapy.Spider):
         if tmp:
             query = urllib.parse.parse_qs(urllib.parse.urlparse(response.request.url).query)['q'][0]
             scroll_cursor = tmp.group(1)
-            url = 'https://twitter.com/i/search/timeline?q=%s&' \
+            url = 'https://twitter.com/i/search/timeline?f=tweets&q=%s&' \
                   'include_available_features=1&include_entities=1&max_position=%s' % \
                   (urllib.parse.quote_plus(query), scroll_cursor)
             yield scrapy.Request(url, callback=self.parse_more_page)
@@ -59,7 +59,7 @@ class TweetScraper(scrapy.Spider):
         # get next page
         query = urllib.parse.parse_qs(urllib.parse.urlparse(response.request.url).query)['q'][0]
         min_position = data['min_position']
-        url = 'https://twitter.com/i/search/timeline?q=%s&' \
+        url = 'https://twitter.com/i/search/timeline?f=tweets&q=%s&' \
               'include_available_features=1&include_entities=1&max_position=%s' % \
               (urllib.parse.quote_plus(query), min_position)
         yield scrapy.Request(url, callback=self.parse_more_page)
